@@ -24,6 +24,14 @@ Install it:
 
 > kubectl apply -f k8s/elasticsearch.yaml
 
+## [生成访问用户](https://www.elastic.co/guide/en/cloud-on-k8s/master/k8s-users-and-roles.html)
+
+```
+docker run --rm docker.elastic.co/elasticsearch/elasticsearch:8.2.0 bash -c 'bin/elasticsearch-users useradd npooles -r superuser -p elastic12345679 ;cat config/users;cat config/users_roles'
+```
+
+注: 个人测试 **官方示例是错误的**, 使用上面的命令生成(注意修改账号和密码)
+
 ---
 
 ## 集群规模

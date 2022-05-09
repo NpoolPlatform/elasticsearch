@@ -1,0 +1,9 @@
+resources:
+  - elasticsearch.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+secretGenerator:
+  - name: elastic-roles-secret
+    files:
+      - filerealm

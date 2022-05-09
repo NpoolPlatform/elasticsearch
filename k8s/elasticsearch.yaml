@@ -11,69 +11,81 @@ metadata:
   namespace: elastic-manager
 spec:
   version: 7.17.2
+  auth:
+    fileRealm:
+      - secretName: elastic-user-secret
   nodeSets:
-  - name: masters
-    count: 3
-    podTemplate:
-      spec:
-        initContainers:
-          - name: sysctl
-            resources:
-              limits:
-                cpu: 1000m
-                memory: 512M
-              requests:
-                cpu: 1000m
-                memory: 512M
-            securityContext:
-              privileged: true
-              runAsUser: 0
-            command: ['sh', '-c', 'sysctl -w vm.max_map_count=262144']
-        containers:
-          - name: elasticsearch
-            env:
-              - name: ES_JAVA_OPTS
-                value: "-Xms1g -Xmx1g"
-    config:
-      node.roles: ["master"]
-      xpack.ml.enabled: true
-      node.store.allow_mmap: true
-    volumeClaimTemplates:
-      - metadata:
-          name: elasticsearch-data
+    - name: masters
+      count: 3
+      podTemplate:
         spec:
-          accessModes:
-            - ReadWriteOnce
-          resources:
-            requests:
-              storage: 50Gi
-          storageClassName: elasticsearch-pvc
-  - name: data
-    count: 3
-    podTemplate:
-      spec:
-        initContainers:
-          - name: sysctl
+          initContainers:
+            - name: sysctl
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 1Gi
+                requests:
+                  cpu: 1000m
+                  memory: 1Gi
+              securityContext:
+                privileged: true
+                runAsUser: 0
+              command: ["sh", "-c", "sysctl -w vm.max_map_count=262144"]
+          containers:
+            - name: elasticsearch
+              env:
+                - name: ES_JAVA_OPTS
+                  value: "-Xms1g -Xmx1g"
+      config:
+        node.roles: ["master"]
+        xpack.ml.enabled: true
+        node.store.allow_mmap: true
+    - name: data
+      count: 3
+      podTemplate:
+        spec:
+          initContainers:
+            - name: sysctl
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 2Gi
+                requests:
+                  cpu: 1000m
+                  memory: 2Gi
+              securityContext:
+                privileged: true
+                runAsUser: 0
+              command: ["sh", "-c", "sysctl -w vm.max_map_count=262144"]
+          containers:
+            - name: elasticsearch
+              env:
+                - name: ES_JAVA_OPTS
+                  value: "-Xms1g -Xmx1g"
+      config:
+        node.roles:
+          [
+            "data",
+            "data_content",
+            "data_hot",
+            "data_warm",
+            "data_cold",
+            "ingest",
+            "ml",
+            "transform"
+          ]
+      volumeClaimTemplates:
+        - metadata:
+            name: elasticsearch-data
+          spec:
+            accessModes:
+              - ReadWriteOnce
             resources:
-              limits:
-                cpu: 1000m
-                memory: 1Gi
               requests:
-                cpu: 1000m
-                memory: 1Gi
-            securityContext:
-              privileged: true
-              runAsUser: 0
-            command: ['sh', '-c', 'sysctl -w vm.max_map_count=262144']
-        containers:
-          - name: elasticsearch
-            env:
-              - name: ES_JAVA_OPTS
-                value: "-Xms2g -Xmx2g"
-    config:
-      node.roles: ["data", "data_content", "data_hot", "data_warm", "data_cold", "ingest", "ml", "transform"]
-  - name: client
-    count: 2
-    config:
-      node.roles: ["remote_cluster_client"]
-      xpack.ml.enabled: true
+                storage: 50Gi
+    - name: client
+      count: 2
+      config:
+        node.roles: ["remote_cluster_client"]
+        xpack.ml.enabled: true
