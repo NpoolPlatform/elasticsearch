@@ -36,8 +36,9 @@ docker run --rm docker.elastic.co/elasticsearch/elasticsearch:8.2.0 bash -c 'bin
 
 ## 集群规模
 + client * 2
-+ data * 3(2G)
-+ master * 3(1G)
++ data * 3(2G+50G存储)
++ master * 3(1G+1G存储)
+
 ## Jenkins
 
 Jenkins UI 涉及的环境变量和可选值

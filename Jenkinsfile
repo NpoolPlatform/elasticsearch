@@ -18,7 +18,7 @@ pipeline {
           sh '''
             helm repo add elastic https://helm.elastic.co
             helm repo update
-            kubectl apply -f k8s/elasticsearch.yaml
+            kubectl apply -k k8s
           '''
         }
       }
