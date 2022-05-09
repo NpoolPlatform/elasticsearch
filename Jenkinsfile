@@ -7,6 +7,21 @@ pipeline {
       }
     }
 
+    stage('install helm 3.7') {
+      steps {
+        script {
+          if (!fileExists("/usr/bin/helm")) {
+            sh 'mkdir -p $HOME/.helm'
+            if (!fileExists("$HOME/.helm/.helm-src")) {
+              sh 'git clone https://github.com/helm/helm.git $HOME/.helm/.helm-src'
+            }
+            sh 'cd $HOME/.helm/.helm-src; git checkout release-3.7; make; cp bin/helm /usr/bin/helm'
+            sh 'helm version'
+          }
+        }
+      }
+    }
+
     stage('Deploy elasticsearch') {
       when {
         allOf {
