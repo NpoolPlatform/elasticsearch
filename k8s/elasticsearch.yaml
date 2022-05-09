@@ -14,6 +14,10 @@ spec:
   auth:
     fileRealm:
       - secretName: elastic-user-secret
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
   nodeSets:
     - name: masters
       count: 3
