@@ -7,4 +7,5 @@ generatorOptions:
 secretGenerator:
   - name: elastic-roles-secret
     files:
-      - filerealm
+      - filerealm/users
+      - filerealm/users_roles
