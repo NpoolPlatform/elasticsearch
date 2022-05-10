@@ -33,8 +33,10 @@ pipeline {
           sh '''
             helm repo add elastic https://helm.elastic.co
             helm repo update
+
             helm upgrade -n elastic-system elastic-operator elastic/eck-operator || \
             helm install -n elastic-system elastic-operator elastic/eck-operator --create-namespace
+
             [ -d k8s/filerealm ] && rm -rf k8s/filerealm
             mv filerealm k8s
             kubectl apply -k k8s

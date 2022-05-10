@@ -5,7 +5,7 @@ resources:
 generatorOptions:
   disableNameSuffixHash: true
 secretGenerator:
-  - name: elastic-roles-secret
+  - name: elastic-users-secret
     files:
       - filerealm/users
       - filerealm/users_roles

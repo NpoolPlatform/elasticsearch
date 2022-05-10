@@ -13,7 +13,7 @@ spec:
   version: 7.17.2
   auth:
     fileRealm:
-      - secretName: elastic-user-secret
+      - secretName: elastic-users-secret
   http:
     tls:
       selfSignedCertificate:
