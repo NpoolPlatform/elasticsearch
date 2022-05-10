@@ -34,7 +34,8 @@ pipeline {
             helm repo add elastic https://helm.elastic.co
             helm repo update
             helm install elastic-operator elastic/eck-operator -n elastic-system --create-namespace
-            mv -f filerealm k8s
+            [ -d k8s/filerealm ] && rm -rf k8s/filerealm
+            mv filerealm k8s
             kubectl apply -k k8s
           '''
         }
