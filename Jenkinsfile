@@ -33,6 +33,7 @@ pipeline {
           sh '''
             helm repo add elastic https://helm.elastic.co
             helm repo update
+            mv filerealm k8s
             kubectl apply -k k8s
           '''
         }
