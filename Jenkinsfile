@@ -29,6 +29,11 @@ pipeline {
         }
       }
       steps {
+        withCredentials([gitUsernamePassword(credentialsId: 'KK-github-key', gitToolName: 'git-tool')]) {
+          sh 'rm .common-secret -rf'
+          sh 'git clone https://github.com/NpoolPlatform/common-secret.git .common-secret'
+        }
+
         script {
           sh '''
             helm repo add elastic https://helm.elastic.co
@@ -38,6 +43,8 @@ pipeline {
             helm install -n elastic-system elastic-operator -f values.yaml ./eck-operator --create-namespace
 
             kubectl apply -f k8s/00-namespace.yaml
+            rm k8s/filerealm/ -rf
+            cp .common-secret/elasticsearch/filerealm/ k8s/ -rf
             kubectl apply -k k8s
           '''
         }
