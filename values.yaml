@@ -127,6 +127,15 @@ telemetry:
 
 # config values for the operator.
 config:
+  disable-telemetry: true
+  enable-tracing: false
+  enable-webhook: false
+  manage-webhook-certs: true
+  metrics-port: 0
+  namespaces: "elastic-manager"
+  operator-namespace: "elastic-operator"
+  validate-storage-class: true
+  webhook-name: "elastic-webhook.k8s.elastic.co"
   # logVerbosity defines the logging level. Valid values are as follows:
   # -2: Errors only
   # -1: Errors and warnings
