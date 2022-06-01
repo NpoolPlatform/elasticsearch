@@ -1,6 +1,6 @@
 namespace: elastic-system
 resources:
-  - elasticsearch.yaml
+  - 01-elasticsearch.yaml
 
 generatorOptions:
   disableNameSuffixHash: true
