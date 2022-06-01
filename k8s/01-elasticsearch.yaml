@@ -5,6 +5,7 @@ metadata:
   name: elasticsearch
   namespace: elastic-system
 spec:
+  image: uhub.service.ucloud.cn/entropypool/elasticsearch:7.17.2
   version: 7.17.2
   auth:
     fileRealm:
