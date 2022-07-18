@@ -50,10 +50,10 @@ spec:
               resources:
                 limits:
                   cpu: 100m
-                  memory: 1Gi
+                  memory: 512Mi
                 requests:
                   cpu: 100m
-                  memory: 1Gi
+                  memory: 512Mi
               securityContext:
                 privileged: true
                 runAsUser: 0
