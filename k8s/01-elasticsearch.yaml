@@ -73,11 +73,11 @@ spec:
             "data_cold",
             "ingest",
             "ml",
-            "transform"
+            "transform",
           ]
       volumeClaimTemplates:
         - metadata:
-            name: plain-storage
+            name: elasticsearch-data
           spec:
             accessModes:
               - ReadWriteOnce
