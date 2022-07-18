@@ -5,6 +5,7 @@ elasticsearch for fulltext search or tracing data store
 ## Install ECK
 
 ### Helm
+
 [Helm install](https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-install-helm.html#k8s-install-helm-global)
 
 first read [ECK Config](https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-operator-config.html), and disable fllow features
@@ -13,7 +14,7 @@ first read [ECK Config](https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s
 
 Add the Elastic Helm charts repo:
 
-> helm repo add elastic https://helm.elastic.co
+> helm repo add elastic <https://helm.elastic.co>
 > helm repo update
 
 Install it:
@@ -26,7 +27,7 @@ Install it:
 
 ## [生成访问用户](https://www.elastic.co/guide/en/cloud-on-k8s/master/k8s-users-and-roles.html)
 
-```
+```sh
 docker run --rm docker.elastic.co/elasticsearch/elasticsearch:8.2.0 bash -c 'bin/elasticsearch-users useradd npooles -r superuser -p elastic12345679 ;cat config/users;cat config/users_roles'
 ```
 
@@ -35,6 +36,7 @@ docker run --rm docker.elastic.co/elasticsearch/elasticsearch:8.2.0 bash -c 'bin
 ---
 
 ## 集群规模
+
 + client * 2
 + data * 3(2G+50G存储)
 + master * 3(1G+1G存储)
@@ -55,6 +57,7 @@ Jenkins UI 涉及的环境变量和可选值
 + [certificate](https://www.elastic.co/guide/en/cloud-on-k8s/1.1/k8s_manage_the_webhook_certificate_with_cert_manager.html)
 + storage
     依赖的 pvc name **elastic-pvc** 大小 **3*50G**
+
 ## 拓展
 
 [linkerd](https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-service-mesh-linkerd.html)
